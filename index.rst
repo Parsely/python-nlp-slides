@@ -209,7 +209,6 @@ A taste of what's to come
     S ->
         NE -> Herman/NNP Cain/NNP
         runs/VBZ
-        for/IN
         president/NN
         of/IN
         the/DT
@@ -601,7 +600,7 @@ Improving the approach in the small
 
     90 headlines each from 6 publishers: Bloomberg, Kotaku, DailyCaller, PopSugar, NBC Local, and Mashable.
 
-    * We can parse each of these headlines into parse trees and see results
+    We can parse each of these headlines into parse trees and see results
 
 Demo time
 ---------
