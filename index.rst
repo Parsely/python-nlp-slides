@@ -27,7 +27,7 @@ Just Enough NLP with Python
 Meta Information
 ----------------
 
-**Me**: I've been using Python for 10 years. I use Python full-time, and have for the last 3 years. I'm the founder/principal at `Aleph Point`_, an agile software engineering consulting and training firm. I'm also the co-founder/CTO of Parse.ly_, a tech startup in the digital media space.
+**Me**: I've been using Python for 10 years. I use Python full-time, and have for the last 3 years. I'm the founder/principal at `Aleph Point`_, an agile software engineering consulting and training firm. I'm co-founder/CTO of Parse.ly_, a tech startup in the digital media space.
 
 **E-mail me**: andrew@parsely.com
 
@@ -276,7 +276,7 @@ Quick note on Text/TextCollection
 
 Though these classes are good for illustration purposes, I find this to be one of the less polished parts of NLTK.
 
-For more formal support for texts and text collections, we'll obviously use Solr in production. I've considered experimenting with Whoosh (basically, a Solr in Python, but simpler/less scalable) but never found a good reason to avoid simply loading text documents into Solr.
+For more formal support for texts and text collections, one should use Solr in production. I've considered experimenting with Whoosh (basically, "a Solr in Python," but simpler/less scalable) but never found a good reason to avoid simply loading text documents into Solr.
 
 Rule vs. Data-based Corpus Linguistics
 --------------------------------------
@@ -320,7 +320,7 @@ Finally, NLTK provides some modules that go beyond actually processing text and 
 
 .. class:: incremental
 
-    * ``nltk.classify``: offers feature-based classifiers such as ``NaiveBayesClassifier`` and ``MaxEntClassifier``. These are not highly scalable implementaitons, but they are good enough for testing hypotheses and could be made to school if needed.
+    * ``nltk.classify``: offers feature-based classifiers such as ``NaiveBayesClassifier`` and ``MaxEntClassifier``. These are not highly scalable implementaitons, but they are good enough for testing hypotheses and could be made to scale if needed.
     * ``nltk.cluster``: offers standard algorithms for grouping documents using e.g. the vector space model, k-means, and ways of visualizing these clusters.
 
 On the NLTK menu (4)
@@ -591,17 +591,6 @@ Back to reality
 
     Headlines (and full text) have a lot more going on than these intentionally simple sentences.
 
-Improving the approach in the small
------------------------------------
-
-.. class:: incremental
-
-    Let's look at some real data.
-
-    90 headlines each from 6 publishers: Bloomberg, Kotaku, DailyCaller, PopSugar, NBC Local, and Mashable.
-
-    We can parse each of these headlines into parse trees and see results.
-
 Demo time
 ---------
 
@@ -618,7 +607,7 @@ Ideas for improvement
     * Choose tags to exclude/include
     * Utilize corpus information (TF/IDF)
     * Prebuild affinity indices (concordance/collocation)
-    * Leverage a taxonomy (e.g. Wikipedia, as done now)
+    * Leverage a taxonomy (e.g. Wikipedia)
     * Tap into meta-information (categories)
     * Navigate up in conceptual understanding (hypernyms)
     * Use a search engine during NLP phase (fire boolean queries)
@@ -626,15 +615,9 @@ Ideas for improvement
 Single doc vs. corpus analysis
 ------------------------------
 
-This concludes my segment. Link to `the full image`_.
-
 .. image:: img/03_singledoc_corpus.png
     :align: center
 
-
-Didier will now walk you through some of the techniques for using corpus data.
-
-.. _the full image: https://docs.google.com/drawings/pub?id=1QOHwEwIwiwGiklwAwsHEW3T0fKycShiB3TcIN_MNDpg&w=960&h=720
 
 Baby Turtles
 ------------
