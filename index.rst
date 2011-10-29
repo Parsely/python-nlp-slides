@@ -1,8 +1,8 @@
 .. include:: <s5defs.txt>
 
-===========================
-Just Enough NLP with Python
-===========================
+======================================
+Just Enough NLP with Python (Internal)
+======================================
 
 :Author:  Andrew Montalenti
 :Date:    $Date: 2011-10-23 09:00:00 -0500 (Tues, 23 Oct) $
@@ -598,7 +598,7 @@ Improving the approach in the small
 
     Let's look at some real data.
 
-    90 headlines each from 6 publishers: Bloomberg, Kotaku, DailyCaller, PopSugar, NBC Local, and Mashable.
+    90 headlines each from 6 publishers.
 
     We can parse each of these headlines into parse trees and see results.
 
