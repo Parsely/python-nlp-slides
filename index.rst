@@ -1,8 +1,8 @@
 .. include:: <s5defs.txt>
 
-===========================
-Just Enough NLP with Python
-===========================
+======================================
+Just Enough NLP with Python (internal)
+======================================
 
 :Author:  Andrew Montalenti
 :Date:    $Date: 2011-10-23 09:00:00 -0500 (Tues, 23 Oct) $
