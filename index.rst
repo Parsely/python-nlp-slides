@@ -516,11 +516,11 @@ Capitalized unigrams lead all sentences:
 
 .. sourcecode:: python
 
-    >>> p("Expectation drops for Goldman's earnings")
+    >>> p("Expectation drops with Goldman's earnings")
     S ->
         NE -> Expectation/NN
         drops/NNS
-        for/IN
+        with/IN
         NE -> Goldman/NNP
         earnings/NNS
 
@@ -596,18 +596,18 @@ Improving the approach in the small
 
 .. class:: incremental
 
-    Let's look at some real data
+    Let's look at some real data.
 
     90 headlines each from 6 publishers: Bloomberg, Kotaku, DailyCaller, PopSugar, NBC Local, and Mashable.
 
-    We can parse each of these headlines into parse trees and see results
+    We can parse each of these headlines into parse trees and see results.
 
 Demo time
 ---------
 
 ... cue music ...
 
-Axes for improvement
+Ideas for improvement
 ---------------------
 
 .. class:: incremental
