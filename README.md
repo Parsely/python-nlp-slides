@@ -6,7 +6,7 @@
 
 Slides can be viewed in compiled form at:
 
-http://pixelmonkey.org/pub/python-nlp/
+http://pixelmonkey.org/pub/nlp-training/
 
 Note that the slides can be controlled as follows:
 
