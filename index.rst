@@ -5,7 +5,7 @@ Just Enough NLP with Python
 ===========================
 
 :Author:  Andrew Montalenti
-:Date:    $Date: 2011-10-23 09:00:00 -0500 (Tues, 23 Oct) $
+:Date:    $Date: 2012-10-26 09:00:00 -0500 (Fri, 26 Oct) $
 
 .. This document is copyright Andrew Montalenti and Parsely, Inc.
 
@@ -27,7 +27,9 @@ Just Enough NLP with Python
 Meta Information
 ----------------
 
-**Me**: I've been using Python for 10 years. I use Python full-time, and have for the last 3 years. I'm the founder/principal at `Aleph Point`_, an agile software engineering consulting and training firm. I'm co-founder/CTO of Parse.ly_, a tech startup in the digital media space.
+**Me**: I've been using Python for 10 years. I use Python full-time, and have for the last 3 years.
+
+**Startup**: I'm co-founder/CTO of Parse.ly_, a tech startup in the digital media space.
 
 **E-mail me**: andrew@parsely.com
 
@@ -38,6 +40,13 @@ Meta Information
 .. _Aleph Point: http://alephpoint.com
 .. _Parse.ly: http://parsely.com
 .. _amontalenti: http://twitter.com/amontalenti
+
+Parse.ly
+--------
+
+What do we do?
+
+How do we do it?
 
 Slide Zero
 -----------
@@ -290,6 +299,11 @@ Practicality wins again: nltk.data
 
 The ``nltk.data`` module offers access to a slew of off-the-shelf models that are widely used in academia, and is extensible so that you can add your own. The data tends to be stored in high-speed disk indexes (e.g. cPickle files) so that performance is acceptable as long as fast I/O is available.
 
+.. sourcecode:: python
+
+    import nltk
+    nltk.download()
+
 On the NLTK menu (1)
 --------------------
 
@@ -339,7 +353,6 @@ Other options for Python NLP exist
     * http://pypi.python.org/pypi/stemming/1.0
     * https://github.com/apresta/tagger
     * http://pypi.python.org/pypi/Whoosh/
-    * http://github.com/japerk/nltk-trainer
 
 And other options for NLP generally exist
 -----------------------------------------
@@ -354,6 +367,11 @@ Brief Interlude for Questions?
 ------------------------------
 
 Next, we dive into doing entity extraction with NLTK. Any questions for now?
+
+Entity Extraction
+-----------------
+
+What is it, why do we need it?
 
 NLTK has a default NER algorithm
 -----------------------------------------
@@ -516,11 +534,11 @@ Capitalized unigrams lead all sentences:
 
 .. sourcecode:: python
 
-    >>> p("Expectation drops with Goldman's earnings")
+    >>> p("Expectation drops in Goldman's earnings")
     S ->
         NE -> Expectation/NN
         drops/NNS
-        with/IN
+        in/IN
         NE -> Goldman/NNP
         earnings/NNS
 
@@ -591,11 +609,6 @@ Back to reality
 
     Headlines (and full text) have a lot more going on than these intentionally simple sentences.
 
-Demo time
----------
-
-... cue music ...
-
 Ideas for improvement
 ---------------------
 
@@ -618,6 +631,65 @@ Single doc vs. corpus analysis
 .. image:: img/03_singledoc_corpus.png
     :align: center
 
+Keyword Colocation
+------------------
+
+What is it, why should you care?
+
+Colocations Example
+-------------------
+
+.. sourcecode:: python
+
+    from nltk.collocations import TrigramCollocationFinder
+    from nltk.metrics import TrigramAssocMeasures
+    from nltk.corpus import webtext
+    from nltk.corpus import stopwords
+    stop_set = set(stopwords.words('english'))
+    stops_filter = lambda w: len(w) < 3 or w in stop_set
+    words = [word.lower() 
+                for word in webtext.words('singles.txt')]
+    tcf = TrigramCollocationFinder.from_words(words)
+    tcf.apply_word_filter(stops_filter)
+    tcf.apply_freq_filter(2)
+    tcf.nbest(TrigramAssocMeasures.likelihood_ratio, 4)
+
+Stemming
+--------
+
+What is it, why should you care?
+
+Stemming Example
+----------------
+
+.. sourcecode:: python
+
+    from nltk.stem import PorterStemmer
+    from nltk import word_tokenize
+
+    def publisher_text(pub_name, stem=False):
+        if stem:
+            stemmer = PorterStemmer()
+            stem = stemmer.stem
+        else:
+            stem = lambda word: word
+        textfile = open("data/%s.txt" % pub_name)
+        words = (stem(word)
+                    for headline in textfile
+                    for word in word_tokenize(headline.strip().replace(".", "")))
+        return " ".join(words)
+
+Wordnet
+-------
+
+What is it, why should you care?
+
+Wordnet Example
+---------------
+
+.. sourcecode:: python
+    
+    """...."""
 
 Baby Turtles
 ------------
