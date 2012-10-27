@@ -48,10 +48,70 @@ What do we do?
 
 How do we do it?
 
-Slide Zero
+Complex Media
+-------------
+
+.. class:: incremental
+
+    Male-focused media company started by Mark Ecko, American fashion designer and
+    entrepreneur.
+
+    Huge monthly traffic numbers, lots of readers across the world.
+
+    Early adopters of Parse.ly.
+
+Eye Disease
 -----------
 
-Simplicity begets elegance.
+.. class:: incremental
+
+    Progressive outer retinal necrosis.
+
+    Also known as Varicella zoster virus retinitis (VZVR), it is an aggressive,
+    necrotizing inflammation of the eye's retina caused by herpes varicella zoster
+    virus. 
+
+So, a question
+--------------
+
+Why was I researching eye disease on a Saturday to debug a customer problem?
+
+Answer
+------
+
+.. class:: incremental
+
+    Progressive
+
+    Outer 
+
+    Retinal
+
+    Necrosis
+
+ANSWER
+------
+
+.. class:: incremental
+
+    `P` `O` `R` `N`
+
+Lesson Learned
+--------------
+
+.. class:: incremental
+
+    Customer Metadata is Hard (See my talk on crawling/metadata later today)
+
+    Topic Ontologies are Hard (See Didier's Wikipedia talk later)
+
+    Thorny problems in NLP persist: disambiguation, overfitting
+
+    NLP may not be the answer; consider IR
+
+    Parse.ly is even undergoing an NLP -> IR shift in approach
+
+    That said, NLTK keeps getting better
 
 
 NLTK Hello, World
@@ -674,10 +734,11 @@ Stemming Example
         else:
             stem = lambda word: word
         textfile = open("data/%s.txt" % pub_name)
-        words = (stem(word)
+        words = (stem(word.lower())
                     for headline in textfile
                     for word in word_tokenize(headline.strip().replace(".", "")))
         return " ".join(words)
+    publisher_text("bloomberg")
 
 Wordnet
 -------
@@ -689,7 +750,123 @@ Wordnet Example
 
 .. sourcecode:: python
     
-    """...."""
+    >>> from nltk.corpus import wordnet
+    >>> senses = wordnet.synsets("newspaper")
+    >>> s = senses[0]
+    >>> s.hypernym_paths()
+    [[Synset('entity.n.01'),
+    Synset('physical_entity.n.01'),
+    Synset('object.n.01'),
+    Synset('whole.n.02'),
+    Synset('artifact.n.01'),
+    Synset('instrumentality.n.03'),
+    Synset('medium.n.01'),
+    Synset('print_media.n.01'),
+    Synset('press.n.02'),
+    Synset('newspaper.n.01')]]
+    >>> s.hyponyms()
+    [Synset('daily.n.01'),
+    Synset('school_newspaper.n.01'),
+    Synset('tabloid.n.02'),
+    Synset('gazette.n.01')]
+
+Classification
+--------------
+
+What is it, why should you care?
+
+Classification Example
+----------------------
+
+.. sourcecode:: python
+
+    >>> features = [(word, True) for word in word_tokenize(text)]
+    >>> classifier = nltk.data.load('classifiers/my_classifier.pickle')
+    >>> classifier.classify(features)
+    'pos'
+
+How do I make a classifier?
+---------------------------
+
+.. class:: incremental
+
+    NLTK includes a few basic classifiers out of the box.
+
+    Best option for building your own is japerk's `nltk-trainer`_ project.
+
+    Provides a CLI for creating classifier pickle files from corpora.
+
+.. _nltk-trainer: http://nltk-trainer.readthedocs.org
+
+nltk-trainer example
+--------------------
+
+.. sourcecode:: sh
+
+    $ python train_classifier.py 
+        --instances paras \
+        --classifier NaiveBayes \
+        --ngrams 1 --ngrams 2 \
+        movie_reviews
+    ...
+    Created in nltk_data/classifiers/movie_reviews_NaiveBayes.pickle
+
+Classifier from Scratch
+-----------------------
+
+.. sourcecode:: python
+
+    from nltk import word_tokenize
+    from nltk.stem.wordnet import WordNetLemmatizer
+    import nltk
+    lemmatizer = WordNetLemmatizer()
+    lemmatize = lambda word: lemmatizer.lemmatize(word.lower())
+    def get_words(pub):
+        for line in open('data/%s.txt' % pub):
+            for word in word_tokenize(line):
+                yield word
+    def word_features(pub):
+        words = get_words(pub)
+        return {"contains(%s)" % lemmatize(word): True 
+                    for word in words}
+    bloomberg = [(word_features("bloomberg"), "Bloomberg")]
+    apttherapy = [(word_features("popsugar"), "Apartment Therapy")]
+    feature_set = bloomberg + apttherapy
+    classifier = nltk.NaiveBayesClassifier.train(feature_set)
+
+Classifier Results
+------------------
+
+.. sourcecode:: python
+
+    >>> classifier.classify(word_features("apttherapy"))
+    "Apartment Therapy"
+    >>> classifier.classify(word_features("bloomberg"))
+    "Bloomberg"
+
+I certainly hope so! But how about others:
+
+.. sourcecode:: python
+
+    >>> classifier.classify(word_features("mashable"))
+    "Bloomberg"
+    >>> classifier.classify(word_features("nbclocal"))
+    "Apartment Therapy"
+
+Conclusion: 
+
+    * Mashable content is "like" Bloomberg
+    * NBC Local content is "like" Apartment Therapy
+
+An obvious improvement
+----------------------
+
+We are using a Naive Bayes classifier in above example, but that performs
+pretty poorly when using single word-based features.
+
+(But hey, at least we're lemmatizing.)
+
+Better would be to use something like a bigram model or the NER from earlier.
 
 Baby Turtles
 ------------
