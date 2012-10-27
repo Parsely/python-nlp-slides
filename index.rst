@@ -33,13 +33,13 @@ Meta Information
 
 **E-mail me**: andrew@parsely.com
 
-**Follow me on Twitter**: amontalenti_
+**Follow me on Twitter**: `@amontalenti`_
 
 **Connect on LinkedIn**: http://linkedin.com/in/andrewmontalenti
 
 .. _Aleph Point: http://alephpoint.com
 .. _Parse.ly: http://parsely.com
-.. _amontalenti: http://twitter.com/amontalenti
+.. _@amontalenti: http://twitter.com/amontalenti
 
 Parse.ly
 --------
@@ -113,6 +113,12 @@ Lesson Learned
 
     That said, NLTK keeps getting better
 
+Meta Slide
+----------
+
+http://bit.ly/nlp-slides
+
+reST, S5, Python all the way down
 
 NLTK Hello, World
 -----------------
@@ -883,3 +889,14 @@ It's turtles all the way down!
 
 .. image:: img/magicturtle.jpg
     :align: center
+
+Tweet and Meet
+--------------
+
+What did you think?
+
+Tweet `@amontalenti`_ with #pydata hash tag!
+
+Rate this talk! http://bit.ly/rate-andrew
+
+Connect on LinkedIn: http://linkedin.com/in/andrewmontalenti
